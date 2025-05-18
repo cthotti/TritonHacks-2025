@@ -4,23 +4,25 @@ from shapely.geometry import box
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-from meteostat import Point, Daily, Stations
+from meteostat import Point, Daily, Stations,Hourly
 from datetime import datetime
 
 start = datetime(2018, 1, 1)
 end = datetime(2018, 1, 1)
 socal = Point(37.160346,-120.937494)
 
-
+new = Point(32.853736, -117.189826)
 
 #print(data['tavg'].values[0])
 stations = Stations()
 stations = stations.nearby(37.160346,-120.937494,radius=1000000)
-station = stations.fetch(2)
+station = stations.fetch(5)
 print(station)
-data = Daily(station, start,end,)
+station = station[station['daily_end']>end]
+data = Daily(station, start,end)
 data = data.fetch()
 print(data)
+print(data.iloc[0]['wspd'])
 
 
 # min/max latitude and longitude for southern california
