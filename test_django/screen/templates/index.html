@@ -53,6 +53,7 @@
 				<div class="inner">
 					<h1>Welcome to <strong>PyroCast AI</strong>
 					</h1>
+					<p>World Class Wild Fire Risk Analysis and Simulator</p>
 					<p>Created by: Yechan Park, Ming Lu, Chetan Thotti</p>
 				</div>
 			</section>
@@ -63,7 +64,7 @@
 					<div class="row gtr-150">
 						<div class="col-6 col-12-medium">
 							{% if has_address %}
-								<h2>Your Address</h2>
+								<h2><b>Your Address</b></h2>
 								<p>{{ county }}</p>
 								<button onclick="showAddressForm()" class="button">Update Address</button>
                     
@@ -84,8 +85,9 @@
 									data-lat="{{ lat|default:'' }}"
 									data-lon="{{ lon|default:'' }}"
 									style="margin-top: 40px;">
-									<h2>Risk Percent Factor</h2>
+									<h2><b>Risk Percent Factor</b></h2>
 									<div class="coordinate-display" style="margin-top: 20px;">
+										<p style="color:#FF4433;">This is the likelihood of a fire starting in a given area based on historic data:</p>
 										<p><strong>Risk Percent:</strong> {{ risk_percent }}</p>
 
 										<!-- Hidden but preserved spans for future JavaScript use -->
@@ -132,7 +134,8 @@
 								<h2>Location Map</h2>
 								<div id="test-map" style="height: 300px; border: 1px solid #ddd; border-radius: 8px;"></div>
 								<span id="acres-burned" style="display:none">{{ acres_burned }}</span>
-								<p><strong>Acres Burned:</strong> {{ acres_burned }}</p>
+								<p><strong>Predicted Acres Burned:</strong> {{ acres_burned }}</p>
+								<p style="margin-top: 10px">This is an estimate, measured in acres, of the potential damage a fire could cause once it starts. It is primarily based on environmental conditions such as temperature and wind speed, which influence how quickly and intensely a fire can spread.</p>
 							</div>
 						</div>
 					</div>

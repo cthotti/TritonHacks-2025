@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import AddressForm
 from .models import Address
+from .fire_model import FireModel
 import logging
 import pandas as pd
 import requests
+import math
 # Create your views here.
 
 risk_df = pd.read_csv("screen/wildfire_risk.csv")
@@ -28,10 +30,14 @@ def screen(request):
         address = request.POST.get('county', '')
         logger.info("received address input -city {city}, Address: {county}")
 
+        #initialize 
+        fireModel = FireModel()
+        
+
         lat, lon = geocode_address(address)
 
         risk_percent = risk_factor1(lat, lon)
-        acres_burned = acres()
+        acres_burned = math.ceil(fireModel.predict(lat,lon))
 
         request.session.update({ 
             'county': address, 

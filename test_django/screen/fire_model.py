@@ -12,7 +12,7 @@ from datetime import datetime
 
 class FireModel:
     def __init__(self):
-        self.fire_df = pd.read_csv('cleaned_mapdata.csv')
+        self.fire_df = pd.read_csv('screen/cleaned_mapdata.csv')
         self.X = self.fire_df.drop('acres_burned',axis=1)
         self.y = np.log1p(self.fire_df['acres_burned'])
         to_scale = ['longitude', 'latitude','day_of_year','tavg','wspd']
