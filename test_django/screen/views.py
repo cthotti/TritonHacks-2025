@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import AddressForm
 from .models import Address
+from .fire_model import FireModel
 import logging
 import pandas as pd
 import requests
@@ -29,9 +30,11 @@ def screen(request):
         logger.info("received address input -city {city}, Address: {county}")
 
         lat, lon = geocode_address(address)
+        fireModel = FireModel()
+
 
         risk_percent = risk_factor1(lat, lon)
-        acres_burned = acres()
+        acres_burned = fireModel.model_predict(lat,lon)
 
         request.session.update({ 
             'county': address, 
