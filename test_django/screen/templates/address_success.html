@@ -1,0 +1,25 @@
+<!-- screen/templates/screen/address_success.html -->
+{% extends 'screen/index.html' %}
+
+{% block content %}
+<section id="address-success" class="main style1">
+    <div class="container">
+        <div class="row gtr-150">
+            <div class="col-6 col-12-medium">
+                <header class="major">
+                    <h2>Thank You!</h2>
+                    <p>We've stored your address securely.</p>
+                </header>
+                <div class="box">
+                    <p>Street: {{ address.street }}</p>
+                    <p>City: {{ address.city }}</p>
+                    <p>State: {{ address.state }}</p>
+                    <p>ZIP: {{ address.zip }}</p>
+                    <p>Country: {{ address.country }}</p>
+                </div>
+                <a href="{% url 'index' %}" class="button">Return Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

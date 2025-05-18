@@ -4,5 +4,6 @@ from . import models
 
 urlpatterns = [
     path('screen/', views.screen, name='screen'),
-    path('screen/test_python/', views.test_python, name='test_python'),
+    path('screen/address', views.address_view, name='address_form'), 
+    path('screen/success/', views.address_success, name='address_success'),
 ]
