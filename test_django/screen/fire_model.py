@@ -9,6 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from meteostat import Point, Daily, Stations
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 class FireModel:
     def __init__(self):
@@ -27,7 +28,7 @@ class FireModel:
         y_test_original = np.expm1(y_test)
         self.MAE = mean_absolute_error(y_test_original,y_pred_original)
 
-    def predict(self,latitude,longitude):
+    def model_predict(self,latitude,longitude):
         date = datetime.today()
         date = datetime(date.year, date.month, date.day)
         tavg,wspd = self.get_weather(date,latitude,longitude)
@@ -37,6 +38,7 @@ class FireModel:
         return self.model.predict(df_input)[0]
 
     def get_weather(self,date,latitude,longitude):
+        date = date - relativedelta(years=5)
         stations = Stations()
         stations = stations.nearby(latitude, longitude, radius=1000000)
         station_df = stations.fetch(10)
@@ -61,4 +63,4 @@ class FireModel:
 if __name__ == '__main__':
     newModel = FireModel()
     print(f'The XGB Regressor has a {newModel.MAE} accuracy!')
-    print(newModel.predict(-121.51707,39.36529))
+    print(newModel.model_predict(32.160346,-120.937494))

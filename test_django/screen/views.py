@@ -4,6 +4,7 @@ from django.template import loader
 from .forms import AddressForm
 from .models import Address
 from .fire_model import FireModel
+from .fire_model import FireModel
 import logging
 import pandas as pd
 import requests
@@ -35,9 +36,11 @@ def screen(request):
         
 
         lat, lon = geocode_address(address)
+        fireModel = FireModel()
+
 
         risk_percent = risk_factor1(lat, lon)
-        acres_burned = math.ceil(fireModel.predict(lat,lon))
+        acres_burned = acres()
 
         request.session.update({ 
             'county': address, 
