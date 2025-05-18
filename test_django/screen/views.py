@@ -19,6 +19,7 @@ def screen(request):
             request.session.pop('county', None)
             request.session.pop('lat', None)
             request.session.pop('lon', None)
+            request.session.pop('acres_burned', None)
             request.session.pop('risk_percent', None)
             request.session['has_address'] = False
             print("location cleared")
@@ -30,12 +31,14 @@ def screen(request):
         lat, lon = geocode_address(address)
 
         risk_percent = risk_factor1(lat, lon)
+        acres_burned = acres()
 
         request.session.update({ 
             'county': address, 
             'lat': lat, 
             'lon': lon,
             'risk_percent': risk_percent,
+            'acres_burned': acres_burned,
             'has_address': True
 
 
@@ -48,11 +51,14 @@ def screen(request):
         ''),
         'lat': request.session.get('lat', ''),
         'lon': request.session.get('lon', ''),
-        'risk_percent': request.session.get('risk_percent', '')
+        'risk_percent': request.session.get('risk_percent', ''), 
+        'acres_burned': request.session.get('acres_burned', '')
     }
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
+def acres(): 
+    return 100
 
 def geocode_address(address): 
     api_key = "AIzaSyDXNho9hSiTCsVRDwShgVSzDI0VbUCH7wA"

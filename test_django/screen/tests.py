@@ -66,11 +66,9 @@ def get_city_from_latlon(lat, lon):
 
 
 
-risk_percent = geocode_address("10410 Falcon Way, San Diego, CA")
-print(risk_percent)
 
 
-'''
+
 import geopandas as gpd
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
@@ -81,7 +79,7 @@ print(gdf.head())
 gdf.plot(figsize=(10, 10), edgecolor='black')
 plt.title("California Counties")
 plt.show()
-'''
+
 
 #openweatherapi:  7b98b7e11c8589fbbc2f3f74ec95803b
 #(32.621458, -116.988865)

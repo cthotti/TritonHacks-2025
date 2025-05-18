@@ -131,7 +131,9 @@
 							<div class="map-section" style="flex: 1;">
 								<h2>Location Map</h2>
 								<div id="test-map" style="height: 300px; border: 1px solid #ddd; border-radius: 8px;"></div>
-							</div>	
+								<span id="acres-burned" style="display:none">{{ acres_burned }}</span>
+								<p><strong>Acres Burned:</strong> {{ acres_burned }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -174,12 +176,14 @@
 					const latDisplay = document.getElementById('lat-display');
 					const lonDisplay = document.getElementById('lon-display');
 					const mapDiv = document.getElementById('test-map');
+					const acresDisplay = document.getElementById('acres-burned');
 					
 					// Only proceed if all elements exist
 					if (latDisplay && lonDisplay && mapDiv) {
 						// Get coordinates from display elements
 						const lat = parseFloat(latDisplay.textContent);
 						const lon = parseFloat(lonDisplay.textContent);
+						const acres = parseFloat(acresDisplay.textContent);
 						
 						// Only initialize map if coordinates are valid
 						if (!isNaN(lat) && !isNaN(lon)) {
@@ -194,11 +198,14 @@
 								.bindPopup(`Your Location`)
 								.openPopup();
 							
+							const areaInSqMeters = acres * 4046.86;
+							const radius = Math.sqrt(areaInSqMeters/Math.PI);
+							
 							L.circle([lat, lon], {
 								color: 'red',
 								fillColor: '#f03',
 								fillOpacity: 0.2,
-								radius: 500
+								radius: radius
 							}).addTo(map);
 						}
 					}
