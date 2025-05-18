@@ -4,8 +4,23 @@ from shapely.geometry import box
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from meteostat import Point, Daily, Stations
+from datetime import datetime
+
+start = datetime(2018, 1, 1)
+end = datetime(2018, 1, 1)
+socal = Point(37.160346,-120.937494)
 
 
+
+#print(data['tavg'].values[0])
+stations = Stations()
+stations = stations.nearby(37.160346,-120.937494,radius=1000000)
+station = stations.fetch(2)
+print(station)
+data = Daily(station, start,end,)
+data = data.fetch()
+print(data)
 
 
 # min/max latitude and longitude for southern california
@@ -71,10 +86,10 @@ plt.show()"""
 lon, lat = -117.1611, 32.7157
 temp = query_temperature(lon, lat)
 print(f"Temperature at ({lat}, {lon}): {temp}")}"""
-
+"""
 fig, ax = plt.subplots(figsize=(10, 10))
 counties.boundary.plot(ax=ax, color='black', linewidth=1)
 #grid_clipped.plot(ax=ax, edgecolor='red', facecolor='none', linewidth=0.8)
 plt.title("100 km Grid Clipped to Southern California")
-plt.show()
+plt.show()"""
 
