@@ -9,6 +9,8 @@ import logging
 import pandas as pd
 import requests
 import math
+import os
+from dotenv import load_dotenv
 # Create your views here.
 
 risk_df = pd.read_csv("screen/wildfire_risk.csv")
@@ -70,7 +72,8 @@ def acres():
     return 100
 
 def geocode_address(address): 
-    api_key = "AIzaSyDXNho9hSiTCsVRDwShgVSzDI0VbUCH7wA"
+    load_dotenv()
+    api_key = os.getenv("API_KEY")
     url = "https://maps.googleapis.com/maps/api/geocode/json"
     params = {
         "address": address,
@@ -87,7 +90,6 @@ def geocode_address(address):
         return None
 
 def risk_factor1(lat, lon): 
-    api_key = "AIzaSyDXNho9hSiTCsVRDwShgVSzDI0VbUCH7wA"
     url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lon}&key={api_key}"
     response = requests.get(url)
     results = response.json().get("results", [])
@@ -127,7 +129,7 @@ def address_view(request):
             return redirect('address_success')
     else:
         form = AddressForm()
-    
+
     return render(request, 'address_form.html', {'form': form})
 
 def address_success(request):
